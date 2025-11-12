@@ -93,13 +93,19 @@ async def get_telegram_user_id(
     Raises:
         HTTPException: Если данные невалидны или отсутствуют
     """
+    from app.core.config import settings
+    
+    # Режим разработки: пропускаем валидацию Telegram
+    if settings.development_mode:
+        # В режиме разработки возвращаем тестовый ID
+        # Можно использовать разные ID для тестирования
+        return 123456789
+    
     if not x_telegram_init_data:
         raise HTTPException(
             status_code=401,
             detail="Требуется авторизация через Telegram"
         )
-    
-    from app.core.config import settings
     
     user_data = validate_telegram_init_data(x_telegram_init_data, settings.telegram_bot_token)
     

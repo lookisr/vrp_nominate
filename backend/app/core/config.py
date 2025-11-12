@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     admin_ids: list[int] = Field(default_factory=list)
     voting_open_default: bool = Field(default=True)
     media_folder: str = Field(default="uploads")
+    development_mode: bool = Field(default=False)
 
     @computed_field
     @property
