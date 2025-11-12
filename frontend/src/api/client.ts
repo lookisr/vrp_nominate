@@ -3,11 +3,28 @@ import type { Nomination, Nominee, NominationResult, ResultsSummary, VoteRequest
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
+// Получаем Telegram WebApp initData
+const getTelegramInitData = (): string => {
+  if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
+    return window.Telegram.WebApp.initData || '';
+  }
+  return '';
+};
+
 const client = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
+});
+
+// Добавляем interceptor для автоматической отправки Telegram initData
+client.interceptors.request.use((config) => {
+  const initData = getTelegramInitData();
+  if (initData) {
+    config.headers['X-Telegram-Init-Data'] = initData;
+  }
+  return config;
 });
 
 export const api = {

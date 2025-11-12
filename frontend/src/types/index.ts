@@ -16,6 +16,7 @@ export interface Nominee {
 
 export interface VoteRequest {
   nominee_id: number;
+  nomination_id: number;
 }
 
 export interface VoteResponse {
@@ -23,6 +24,7 @@ export interface VoteResponse {
   message: string;
   nominee_name: string;
   vote_count: number;
+  already_voted?: boolean;
 }
 
 export interface NominationResult {

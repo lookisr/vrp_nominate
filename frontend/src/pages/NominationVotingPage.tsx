@@ -26,18 +26,23 @@ export const NominationVotingPage = () => {
   const voteMutation = useMutation({
     mutationFn: api.vote,
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['nominees', nominationId] });
-      navigate(`/vote/confirm`, {
-        state: {
-          nomineeName: data.nominee_name,
-          voteCount: data.vote_count,
-        },
-      });
+      if (data.success) {
+        queryClient.invalidateQueries({ queryKey: ['nominees', nominationId] });
+        navigate(`/vote/confirm`, {
+          state: {
+            nomineeName: data.nominee_name,
+            voteCount: data.vote_count,
+          },
+        });
+      }
     },
   });
 
   const handleVote = (nomineeId: number) => {
-    voteMutation.mutate({ nominee_id: nomineeId });
+    voteMutation.mutate({
+      nominee_id: nomineeId,
+      nomination_id: nominationId,
+    });
   };
 
   if (isLoadingNomination || isLoadingNominees) return <Loader />;
@@ -75,6 +80,13 @@ export const NominationVotingPage = () => {
               {voteMutation.error instanceof Error
                 ? voteMutation.error.message
                 : 'Не удалось проголосовать. Голосование может быть закрыто.'}
+            </p>
+          </div>
+        )}
+        {voteMutation.data && !voteMutation.data.success && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+            <p className="text-yellow-800 text-sm font-medium">
+              {voteMutation.data.message}
             </p>
           </div>
         )}
