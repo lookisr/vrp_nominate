@@ -16,8 +16,8 @@ export const NomineeCard = ({
   const imageUrl = nominee.image_path.startsWith('http')
     ? nominee.image_path
     : nominee.image_path.startsWith('/')
-    ? `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}${nominee.image_path}`
-    : `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/${nominee.image_path}`;
+    ? nominee.image_path
+    : `/${nominee.image_path}`;
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
