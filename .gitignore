@@ -50,6 +50,3 @@ Thumbs.db
 # Logs
 *.log
 
-# Alembic
-alembic.ini
-
