@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { Nomination, Nominee, NominationResult, ResultsSummary, VoteRequest, VoteResponse } from '../types';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 const client = axios.create({
   baseURL: API_BASE_URL,
