@@ -57,9 +57,9 @@ export const NominationVotingPage = () => {
 
   if (!nominees || nominees.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-purple-900 pb-20 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600 text-lg">Номинанты пока не добавлены</p>
+          <p className="text-white text-lg">Номинанты пока не добавлены</p>
         </div>
       </div>
     );
@@ -68,15 +68,20 @@ export const NominationVotingPage = () => {
   const isVotingDisabled = voteMutation.isPending || voteMutation.isError;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-2">
-          {nomination?.title || 'Голосование'}
-        </h1>
-        <p className="text-gray-600 mb-6">Выберите номинанта и проголосуйте</p>
+    <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-purple-900 pb-24">
+      <div className="container mx-auto px-4 py-6">
+        {/* Кнопка категории */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-gradient-to-r from-blue-500 to-cyan-400 px-6 py-3 rounded-full shadow-lg">
+            <h1 className="text-xl font-bold text-white text-center">
+              {nomination?.title || 'Голосование'}
+            </h1>
+          </div>
+        </div>
+
         {voteMutation.isError && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-            <p className="text-red-800 text-sm">
+          <div className="bg-red-500/20 border border-red-400 rounded-lg p-4 mb-4">
+            <p className="text-red-100 text-sm text-center">
               {voteMutation.error instanceof Error
                 ? voteMutation.error.message
                 : 'Не удалось проголосовать. Голосование может быть закрыто.'}
@@ -84,12 +89,13 @@ export const NominationVotingPage = () => {
           </div>
         )}
         {voteMutation.data && !voteMutation.data.success && (
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
-            <p className="text-yellow-800 text-sm font-medium">
+          <div className="bg-yellow-500/20 border border-yellow-400 rounded-lg p-4 mb-4">
+            <p className="text-yellow-100 text-sm font-medium text-center">
               {voteMutation.data.message}
             </p>
           </div>
         )}
+
         <div className="grid grid-cols-2 gap-4">
           {nominees.map((nominee) => (
             <NomineeCard

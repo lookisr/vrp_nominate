@@ -22,19 +22,19 @@ export const ResultsPage = () => {
 
   if (!nominations || nominations.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-purple-900 pb-20 flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-600 text-lg">Номинации пока не добавлены</p>
+          <p className="text-white text-lg">Номинации пока не добавлены</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-purple-900 pb-24">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">Итоги</h1>
-        <p className="text-gray-600 mb-6">Выберите номинацию для просмотра результатов</p>
+        <h1 className="text-3xl font-bold text-white text-center mb-3">🏆 Итоги голосования</h1>
+        <p className="text-blue-200 mb-8 text-center">Выберите номинацию для просмотра результатов</p>
         <div className="grid grid-cols-2 gap-4">
           {nominations.map((nomination) => (
             <NominationCard

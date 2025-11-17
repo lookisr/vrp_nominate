@@ -14,16 +14,17 @@ export const NominationCard = ({ nomination, to }: NominationCardProps) => {
     : `/${nomination.image_path}`;
 
   const content = (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-      <div className="aspect-square w-full">
+    <div className="group cursor-pointer">
+      <div className="relative aspect-square w-full rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
         <img
           src={imageUrl}
           alt={nomination.title}
           className="w-full h-full object-cover"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
       </div>
-      <div className="p-3">
-        <h3 className="text-sm font-semibold text-gray-800 text-center line-clamp-2">
+      <div className="mt-3 px-2">
+        <h3 className="text-base font-bold text-white text-left line-clamp-2">
           {nomination.title}
         </h3>
       </div>
