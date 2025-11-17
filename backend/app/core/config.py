@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     postgres_port: int = Field(default=5432)
     telegram_bot_token: str = Field(default="")
     required_channel: str = Field(default="@vrpnews")
-    admin_ids: list[int] = Field(default_factory=list)
+    admin_ids: str = Field(default="")
     voting_open_default: bool = Field(default=True)
     media_folder: str = Field(default="uploads")
     development_mode: bool = Field(default=False)
@@ -30,20 +30,15 @@ class Settings(BaseSettings):
             return self.postgres_dsn
         return f"postgresql+asyncpg://{self.postgres_user}:{self.postgres_password}@{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
 
-    @field_validator("admin_ids", mode="before")
-    @classmethod
-    def parse_admin_ids(cls, value: Any) -> list[int]:
-        """Этот валидатор превращает строку ID в список чисел."""
-        try:
-            if value in (None, "", []):
-                return []
-            if isinstance(value, list):
-                return [int(item) for item in value]
-            if isinstance(value, str):
-                return [int(item.strip()) for item in value.split(",") if item.strip()]
+    @computed_field
+    @property
+    def admin_ids_list(self) -> list[int]:
+        """Парсит admin_ids из строки в список."""
+        if not self.admin_ids:
             return []
-        except (ValueError, TypeError) as e:
-            print(f"Error parsing admin_ids: {value}, error: {e}")
+        try:
+            return [int(item.strip()) for item in self.admin_ids.split(",") if item.strip()]
+        except (ValueError, TypeError):
             return []
 
     class Config:

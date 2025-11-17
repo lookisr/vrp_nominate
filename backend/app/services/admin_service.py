@@ -9,7 +9,7 @@ async def is_admin(session: AsyncSession, telegram_id: int) -> bool:
     """Эта функция проверяет, является ли пользователь администратором."""
 
     # Сначала проверяем список из настроек
-    if telegram_id in settings.admin_ids:
+    if telegram_id in settings.admin_ids_list:
         return True
 
     # Затем проверяем базу данных
