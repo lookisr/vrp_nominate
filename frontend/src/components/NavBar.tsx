@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
+import { HomeIcon, VoteIcon, TrophyIcon } from './Icons';
 
 export const NavBar = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ export const NavBar = () => {
               : 'text-blue-200 hover:text-white'
           }`}
         >
-          <span className="text-2xl mb-1">🏠</span>
+          <HomeIcon className="w-6 h-6 mb-1" />
           <span className="text-xs font-medium">Главная</span>
         </Link>
         <Link
@@ -27,7 +28,7 @@ export const NavBar = () => {
               : 'text-blue-200 hover:text-white'
           }`}
         >
-          <span className="text-2xl mb-1">🗳️</span>
+          <VoteIcon className="w-6 h-6 mb-1" />
           <span className="text-xs font-medium">Голосование</span>
         </Link>
         <Link
@@ -38,7 +39,7 @@ export const NavBar = () => {
               : 'text-blue-200 hover:text-white'
           }`}
         >
-          <span className="text-2xl mb-1">🏆</span>
+          <TrophyIcon className="w-6 h-6 mb-1" />
           <span className="text-xs font-medium">Итоги</span>
         </Link>
       </div>

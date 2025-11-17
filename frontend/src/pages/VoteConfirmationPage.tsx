@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { CheckIcon } from '../components/Icons';
 
 export const VoteConfirmationPage = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ export const VoteConfirmationPage = () => {
         <div className="max-w-md mx-auto bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl shadow-2xl p-8 text-center">
           <div className="mb-6">
             <div className="w-24 h-24 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <span className="text-5xl text-white">✓</span>
+              <CheckIcon className="w-16 h-16 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-white mb-2">Голос учтён!</h1>
           </div>

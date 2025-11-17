@@ -4,6 +4,7 @@ import { api } from '../api/client';
 import { NomineeCard } from '../components/NomineeCard';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Loader } from '../components/Loader';
+import { MegaphoneIcon } from '../components/Icons';
 
 export const NominationVotingPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -101,7 +102,7 @@ export const NominationVotingPage = () => {
                   rel="noopener noreferrer"
                   className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-3 px-8 rounded-full hover:from-blue-600 hover:to-cyan-500 transition-all font-bold shadow-lg inline-flex items-center gap-2"
                 >
-                  <span>📢</span>
+                  <MegaphoneIcon className="w-5 h-5" />
                   Подписаться на канал
                 </a>
               </div>

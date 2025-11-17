@@ -1,11 +1,17 @@
+import { TrophyIcon } from '../components/Icons';
+
 export const MainPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-purple-900 pb-24">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4 drop-shadow-lg">
-            🏆 Премия года VRP
-          </h1>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <TrophyIcon className="w-10 h-10 text-cyan-400" />
+            <h1 className="text-4xl font-bold text-white drop-shadow-lg">
+              Премия года VRP
+            </h1>
+            <TrophyIcon className="w-10 h-10 text-cyan-400" />
+          </div>
           <p className="text-blue-200 text-lg">
             Добро пожаловать на церемонию вручения премии года!
           </p>

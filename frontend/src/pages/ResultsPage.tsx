@@ -3,6 +3,7 @@ import { api } from '../api/client';
 import { NominationCard } from '../components/NominationCard';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { Loader } from '../components/Loader';
+import { TrophyIcon } from '../components/Icons';
 
 export const ResultsPage = () => {
   const { data: nominations, isLoading, error, refetch } = useQuery({
@@ -33,7 +34,10 @@ export const ResultsPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-indigo-900 via-blue-900 to-purple-900 pb-24">
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-white text-center mb-3">🏆 Итоги голосования</h1>
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <TrophyIcon className="w-8 h-8 text-yellow-400" />
+          <h1 className="text-3xl font-bold text-white text-center">Итоги голосования</h1>
+        </div>
         <p className="text-blue-200 mb-8 text-center">Выберите номинацию для просмотра результатов</p>
         <div className="grid grid-cols-2 gap-4">
           {nominations.map((nomination) => (
