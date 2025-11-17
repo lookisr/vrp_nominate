@@ -89,10 +89,23 @@ export const NominationVotingPage = () => {
           </div>
         )}
         {voteMutation.data && !voteMutation.data.success && (
-          <div className="bg-yellow-500/20 border border-yellow-400 rounded-lg p-4 mb-4">
-            <p className="text-yellow-100 text-sm font-medium text-center">
+          <div className="bg-yellow-500/20 border border-yellow-400 rounded-2xl p-6 mb-4">
+            <p className="text-yellow-100 text-base font-bold text-center mb-4">
               {voteMutation.data.message}
             </p>
+            {voteMutation.data.message.includes('подписаться на канал') && (
+              <div className="flex justify-center">
+                <a
+                  href="https://t.me/vrpnews"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white py-3 px-8 rounded-full hover:from-blue-600 hover:to-cyan-500 transition-all font-bold shadow-lg inline-flex items-center gap-2"
+                >
+                  <span>📢</span>
+                  Подписаться на канал
+                </a>
+              </div>
+            )}
           </div>
         )}
 

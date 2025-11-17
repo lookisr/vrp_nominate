@@ -16,6 +16,7 @@ class Settings(BaseSettings):
     postgres_host: str = Field(default="localhost")
     postgres_port: int = Field(default=5432)
     telegram_bot_token: str = Field(default="")
+    required_channel: str = Field(default="@vrpnews")
     admin_ids: list[int] = Field(default_factory=list)
     voting_open_default: bool = Field(default=True)
     media_folder: str = Field(default="uploads")

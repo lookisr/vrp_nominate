@@ -36,6 +36,25 @@ async def create_vote(
             nominee_name="",
             vote_count=0,
         )
+    
+    # Проверяем подписку на канал (только если не в режиме разработки)
+    from app.core.config import settings
+    from app.utils.telegram_auth import check_channel_subscription
+    
+    if not settings.development_mode and settings.required_channel:
+        is_subscribed = await check_channel_subscription(
+            telegram_user_id, 
+            settings.required_channel, 
+            settings.telegram_bot_token
+        )
+        
+        if not is_subscribed:
+            return VoteResponse(
+                success=False,
+                message=f"Для голосования необходимо подписаться на канал {settings.required_channel}",
+                nominee_name="",
+                vote_count=0,
+            )
 
     # Проверяем существование номинанта
     nominee = await get_nominee_by_id(session, nominee_id)

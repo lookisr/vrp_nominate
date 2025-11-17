@@ -3,6 +3,7 @@ import hmac
 import json
 from urllib.parse import parse_qsl
 
+import httpx
 from fastapi import HTTPException, Header
 
 
@@ -93,6 +94,48 @@ def validate_telegram_init_data(init_data: str, bot_token: str) -> dict:
     except Exception as e:
         logger.error(f"Неожиданная ошибка валидации: {str(e)}")
         raise HTTPException(status_code=401, detail=f"Ошибка валидации: {str(e)}")
+
+
+async def check_channel_subscription(user_id: int, channel_username: str, bot_token: str) -> bool:
+    """
+    Проверяет, подписан ли пользователь на канал.
+    
+    Args:
+        user_id: ID пользователя Telegram
+        channel_username: Username канала (например, @vrpnews)
+        bot_token: Токен бота
+        
+    Returns:
+        bool: True если подписан, False иначе
+    """
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    try:
+        url = f"https://api.telegram.org/bot{bot_token}/getChatMember"
+        params = {
+            "chat_id": channel_username,
+            "user_id": user_id
+        }
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url, params=params, timeout=10.0)
+            data = response.json()
+            
+            if not data.get("ok"):
+                logger.error(f"Ошибка проверки подписки: {data.get('description')}")
+                return False
+            
+            status = data.get("result", {}).get("status")
+            # Статусы: creator, administrator, member, restricted, left, kicked
+            is_subscribed = status in ["creator", "administrator", "member"]
+            
+            logger.info(f"Проверка подписки user_id={user_id}: status={status}, subscribed={is_subscribed}")
+            return is_subscribed
+            
+    except Exception as e:
+        logger.error(f"Ошибка при проверке подписки: {str(e)}")
+        return False
 
 
 async def get_telegram_user_id(
