@@ -34,12 +34,17 @@ class Settings(BaseSettings):
     @classmethod
     def parse_admin_ids(cls, value: Any) -> list[int]:
         """Этот валидатор превращает строку ID в список чисел."""
-
-        if value in (None, "", []):
+        try:
+            if value in (None, "", []):
+                return []
+            if isinstance(value, list):
+                return [int(item) for item in value]
+            if isinstance(value, str):
+                return [int(item.strip()) for item in value.split(",") if item.strip()]
             return []
-        if isinstance(value, list):
-            return [int(item) for item in value]
-        return [int(item.strip()) for item in str(value).split(",") if item.strip()]
+        except (ValueError, TypeError) as e:
+            print(f"Error parsing admin_ids: {value}, error: {e}")
+            return []
 
     class Config:
         env_file = ".env"
